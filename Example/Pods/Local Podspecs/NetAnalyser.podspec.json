@@ -1,0 +1,22 @@
+{
+  "name": "NetAnalyser",
+  "version": "0.1.0",
+  "summary": "A short description of NetAnalyser.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/lucasmpaim1@gmail.com/NetAnalyser",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "lucasmpaim1@gmail.com": "lucasmpaim1@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/lucasmpaim1@gmail.com/NetAnalyser.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "NetAnalyser/Classes/**/*"
+}

@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NetAnalyser'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of NetAnalyser.'
+  s.version          = '0.0.1'
+  s.summary          = 'A simple network analyser for iOS based on Chunker and Alice'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,20 +17,18 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+  s.description      = 'A simple network analyser for iOS based on Chunker (Android) and Alice (Flutter)'
 
-  s.homepage         = 'https://github.com/lucasmpaim1@gmail.com/NetAnalyser'
+  s.homepage         = 'https://github.com/lucasmpaim/NetAnalyser'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'lucasmpaim1@gmail.com' => 'lucasmpaim1@gmail.com' }
-  s.source           = { :git => 'https://github.com/lucasmpaim1@gmail.com/NetAnalyser.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/lucasmpaim/NetAnalyser.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '12.0'
 
-  s.source_files = 'NetAnalyser/Classes/**/*'
+  s.source_files = 'NetAnalyser/Sources/**/*'
   
   # s.resource_bundles = {
   #   'NetAnalyser' => ['NetAnalyser/Assets/*.png']
