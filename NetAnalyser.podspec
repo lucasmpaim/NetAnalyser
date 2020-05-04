@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '12.0'
 
-  s.source_files = 'NetAnalyser/Sources/**/*'
+  s.source_files = 'Sources/**/*.swift'
   
   # s.resource_bundles = {
   #   'NetAnalyser' => ['NetAnalyser/Assets/*.png']
