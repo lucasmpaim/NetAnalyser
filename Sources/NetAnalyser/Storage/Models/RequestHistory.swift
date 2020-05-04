@@ -10,17 +10,18 @@ import Foundation
 
 public struct RequestHistory {
 
-    let startTime: Date
-    let endTime: Date
-    let httpStatus: Int
+    public let startTime: Date
+    public let endTime: Date
+    public let httpStatus: Int
     
-    let body: String?
-    let response: String?
-    let errorDescription: String?
-    let curl: String?
+    public let body: String?
+    public let response: String?
+    public let errorDescription: String?
+    public let curl: String?
     
-    let request: Request
-    
+    public let request: Request
+    public let id: Int?
+
     public init(request: Request, startTime: Date, endTime: Date, httpStatus: Int,
                 body: String?, response: String?,
                 errorDescription: String?, curl: String?) {
@@ -32,6 +33,21 @@ public struct RequestHistory {
         self.errorDescription = errorDescription
         self.curl = curl
         self.request = request
+        self.id = nil
+    }
+    
+    init(request: Request, startTime: Date, endTime: Date, httpStatus: Int,
+                body: String?, response: String?,
+                errorDescription: String?, curl: String?, id: Int) {
+        self.startTime = startTime
+        self.endTime = endTime
+        self.httpStatus = httpStatus
+        self.body = body
+        self.response = response
+        self.errorDescription = errorDescription
+        self.curl = curl
+        self.request = request
+        self.id = id
     }
     
 }

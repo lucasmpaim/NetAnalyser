@@ -7,6 +7,6 @@
 
 import Foundation
 
-
 class DatabaseConnectionError: Error { }
 class DatabaseCreationTableError: Error { }
+class DatabaseInsertionError: Error { }

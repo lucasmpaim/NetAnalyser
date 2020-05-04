@@ -22,17 +22,59 @@ extension SQLiteStorage {
         return connection
     }
     
-    func createNetworkTables() throws {
-        let createTableString = """
-        \(TableConstants.kRequestCreationTableSQL)
-        \(TableConstants.kRequestHistoryCreationTableSQL)
-        """
-        var creationTableStatement: OpaquePointer?
-        guard let db = try? openDatabaseConnection(),
-            sqlite3_prepare_v2(db, createTableString, -1, &creationTableStatement, nil) == SQLITE_OK,
-            sqlite3_step(creationTableStatement) == SQLITE_DONE
-        else { throw DatabaseCreationTableError() }
-        sqlite3_finalize(creationTableStatement)
+    func withConnection(actions: (OpaquePointer?) throws -> Void) throws {
+        guard let dbConnection = try? openDatabaseConnection() else { throw DatabaseConnectionError() }
+        defer { sqlite3_close(dbConnection) }
+        try actions(dbConnection)
     }
     
+    func createNetworkTables() throws {
+        
+        try withConnection { dbConnection in
+            var creationTableStatement: OpaquePointer?
+            try [TableConstants.kRequestCreationTableSQL, TableConstants.kRequestHistoryCreationTableSQL].forEach {
+                guard sqlite3_prepare_v2(dbConnection, $0, -1, &creationTableStatement, nil) == SQLITE_OK,
+                    sqlite3_step(creationTableStatement) == SQLITE_DONE else {
+                        throw DatabaseCreationTableError()
+                }
+            }
+            sqlite3_finalize(creationTableStatement)
+        }
+        
+    }
+
+    
+    @discardableResult
+    func makeInsertion(sql: String, actions: (OpaquePointer?) throws -> Void) throws -> Int {
+        
+        var insertionId: Int = 0
+        
+        try withConnection { dbConnection in
+            var insertStatement: OpaquePointer? = nil
+            guard sqlite3_prepare_v2(dbConnection,
+                                     sql,
+                                     -1,
+                                     &insertStatement,
+                                     nil
+                ) == SQLITE_OK else {
+                    let errorMessage = String(cString: sqlite3_errmsg(dbConnection))
+                    debugPrint(errorMessage)
+                    throw DatabaseInsertionError()
+            }
+            
+            try actions(insertStatement)
+
+            guard sqlite3_step(insertStatement) == SQLITE_DONE else {
+                let errorMessage = String(cString: sqlite3_errmsg(dbConnection))
+                print("\nQuery is not prepared! \(errorMessage)")
+
+                throw DatabaseInsertionError()
+            }
+            
+            insertionId = Int(sqlite3_last_insert_rowid(dbConnection))
+            sqlite3_finalize(insertStatement)
+        }
+        
+        return insertionId
+    }
 }
