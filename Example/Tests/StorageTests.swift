@@ -24,21 +24,12 @@ class StorageSpec: QuickSpec {
             }
             
             it("Can save item and retrive item") {
-                let request = Request(method: "POST",
-                                      server: "https://jsonplaceholder.typicode.com",
-                                      path: "/todos/1")
-                
-                let item = RequestHistory(request: request,
-                                          startTime: Date(),
-                                          endTime: Date().addingTimeInterval(2000),
-                                          httpStatus: 200,
-                                          body: nil,
-                                          response: "{'response': 'teste'}",
-                                          errorDescription: nil, curl: "curl -X POST \"https://jsonplaceholder.typicode.com/todos/1\"")
                 
                 expect(try? SQLiteStorage.instance.createNetworkTables()).to(beVoid())
                 
-                expect(try? SQLiteStorage.instance.saveRequestHistory(item)).to(beVoid())
+                expect(try? SQLiteStorage.instance.saveRequestHistory(
+                    self.itemFactory(method: "POST", path: "/todos/1"))
+                ).to(beVoid())
                 
                 expect(try? SQLiteStorage.instance.fetchAllHistory().first?
                     .request.server).to(equal("https://jsonplaceholder.typicode.com"))
@@ -48,41 +39,54 @@ class StorageSpec: QuickSpec {
             }
             
             it("Can add more requests") {
-                let request = Request(method: "GET",
-                                      server: "https://jsonplaceholder.typicode.com",
-                                      path: "/todos/1")
-
-                let request2 = Request(method: "GET",
-                                       server: "https://jsonplaceholder.typicode.com",
-                                       path: "/todos/2")
                 
-                expect(try? SQLiteStorage.instance.createNetworkTables()).to(beVoid())
-
                 expect(try? SQLiteStorage.instance.saveRequestHistory(
-                    RequestHistory(request: request,
-                                   startTime: Date(),
-                                   endTime: Date().addingTimeInterval(2000),
-                                   httpStatus: 200,
-                                   body: nil,
-                                   response: "{'response': 'teste'}",
-                                   errorDescription: nil, curl: "curl -X GET \"https://jsonplaceholder.typicode.com/todos/1\"")
+                    self.itemFactory(method: "POST", path: "/todos/1")
                 )).to(beVoid())
 
                 expect(try? SQLiteStorage.instance.saveRequestHistory(
-                    RequestHistory(request: request2,
-                                   startTime: Date(),
-                                   endTime: Date().addingTimeInterval(2000),
-                                   httpStatus: 200,
-                                   body: nil,
-                                   response: "{'response': 'teste'}",
-                                   errorDescription: nil, curl: "curl -X GET \"https://jsonplaceholder.typicode.com/todos/2\"")
+                    self.itemFactory(method: "POST", path: "/todos/2")
                 )).to(beVoid())
+                
                 
                 expect(try? SQLiteStorage.instance.fetchAllRequests().count).to(beGreaterThan(1))
                 
             }
             
+            it("filter by request") {
+                expect(try? SQLiteStorage.instance.saveRequestHistory(
+                    self.itemFactory(method: "POST", path: "/todos/1")
+                )).to(beVoid())
+
+                expect(try? SQLiteStorage.instance.saveRequestHistory(
+                    self.itemFactory(method: "POST", path: "/todos/2")
+                )).to(beVoid())
+                
+//                let filteredItems = try? SQLiteStorage.instance.
+                
+            }
+            
+            it("Can delete database") {
+                expect(try? SQLiteStorage.instance.clear()).to(beVoid())
+            }
+            
         }
+    }
+    
+    
+    func itemFactory(method: String, path: String) -> RequestHistory {
+        let request = Request(method: method,
+                              server: "https://jsonplaceholder.typicode.com",
+                              path: path)
+        
+        let item = RequestHistory(request: request,
+                                  startTime: Date(),
+                                  endTime: Date().addingTimeInterval(Double.random(in: 200 ..< 800)),
+                                  httpStatus: 200,
+                                  body: nil,
+                                  response: "{'response': 'teste'}",
+                                  errorDescription: nil, curl: "curl -X \(method) \"https://jsonplaceholder.typicode.com/\(path)\"")
+        return item
     }
     
 }

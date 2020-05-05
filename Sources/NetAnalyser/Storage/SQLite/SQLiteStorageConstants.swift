@@ -69,4 +69,18 @@ struct TableConstants {
         FROM \(kRequestTableName) AS r
     """
 
+    static let kSelectRequestHistoryByRequestSQL = """
+    SELECT
+    r.method, r.server, r.path,
+    
+    h.body, h.start_time, h.end_time,
+    h. response, h. error_description,
+    h. curl, h.http_status, r.request_id, h.history_id
+    
+    FROM \(kRequestHistoryTableName) AS h
+        INNER JOIN \(kRequestTableName) AS r ON
+        r.request_id = h.request_id
+    WHERE
+        r.request_id = ?
+    """
 }

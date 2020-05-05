@@ -47,10 +47,6 @@ public class SQLiteStorage : NetworkStorage {
         try saveHistory(requestId: requestId)
     }
     
-    public func fetchHistoryFor(_ request: Request) throws -> [RequestHistory] {
-        try fetchAllHistory()
-    }
-    
     public func fetchAllHistory() throws -> [RequestHistory] {
         var response: [RequestHistory] = []
         
@@ -110,6 +106,49 @@ public class SQLiteStorage : NetworkStorage {
             }
         }
         return response
+    }
+    
+    public func fetchHistoryFor(_ requestId: Int) throws -> [RequestHistory] {
+        var response: [RequestHistory] = []
+        
+        try withConnection { dbConenction in
+            var queryStatement: OpaquePointer?
+            guard sqlite3_prepare_v2(dbConenction, TableConstants.kSelectRequestHistoryByRequestSQL,
+                                     -1, &queryStatement, nil) == SQLITE_OK else {
+                throw DatabaseConnectionError()
+            }
+            
+            sqlite3_bind_int(queryStatement, 0, Int32(requestId))
+            
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                                
+                let request = Request(
+                    method: sqlite3_column_text(queryStatement, 0)!.safeString,
+                    server: sqlite3_column_text(queryStatement, 1)!.safeString,
+                    path: sqlite3_column_text(queryStatement, 2)!.safeString,
+                    id: Int(sqlite3_column_int(queryStatement, 9))
+                )
+                
+                let history = RequestHistory(
+                    request: request,
+                    startTime: Date(timeIntervalSince1970: sqlite3_column_double(queryStatement, 4)),
+                    endTime: Date(timeIntervalSince1970: sqlite3_column_double(queryStatement, 5)),
+                    httpStatus: Int(sqlite3_column_int(queryStatement, 9)),
+                    body: sqlite3_column_text(queryStatement, 3)?.safeString,
+                    response: sqlite3_column_text(queryStatement, 6)?.safeString,
+                    errorDescription: sqlite3_column_text(queryStatement, 7)?.safeString,
+                    curl: sqlite3_column_text(queryStatement, 8)?.safeString,
+                    id: Int(sqlite3_column_int(queryStatement, 10))
+                )
+                response.append(history)
+            }
+        }
+        return response
+
+    }
+    
+    public func clear() throws {
+        try deleteDatabase()
     }
 
 }

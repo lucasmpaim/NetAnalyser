@@ -12,7 +12,7 @@ import SQLite3
 extension SQLiteStorage {
     
     func openDatabaseConnection() throws -> OpaquePointer? {
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(dbPath)
+        let fileURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(dbPath)
         var connection: OpaquePointer? = nil
         
         if sqlite3_open(fileURL.path, &connection) != SQLITE_OK {
@@ -20,6 +20,11 @@ extension SQLiteStorage {
         }
         
         return connection
+    }
+    
+    func deleteDatabase() throws {
+        let fileURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(dbPath)
+        try FileManager.default.removeItem(at: fileURL)
     }
     
     func withConnection(actions: (OpaquePointer?) throws -> Void) throws {

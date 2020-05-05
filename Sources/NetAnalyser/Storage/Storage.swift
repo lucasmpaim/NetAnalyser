@@ -10,7 +10,8 @@ import Foundation
 
 public protocol NetworkStorage {
     func saveRequestHistory(_ request: RequestHistory) throws
-    func fetchHistoryFor(_ request: Request) throws -> [RequestHistory]
+    func fetchHistoryFor(_ requestId: Int) throws -> [RequestHistory]
     func fetchAllHistory() throws -> [RequestHistory]
     func fetchAllRequests() throws -> [Request]
+    func clear() throws
 }
