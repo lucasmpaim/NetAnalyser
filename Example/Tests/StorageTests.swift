@@ -16,16 +16,18 @@ class StorageSpec: QuickSpec {
     
     override func spec() {
         describe("Storage Tests") {
+            
             it("Can connect to database") {
                 expect(try? SQLiteStorage.instance.openDatabaseConnection()).toNot(beNil())
             }
+            
             it("Can create tables") {
-                expect(try? SQLiteStorage.instance.createNetworkTables()).to(beVoid())
+                expect(try? SQLiteStorage.instance.createNetworkTables(
+                    connection: SQLiteStorage.instance.openDatabaseConnection()
+                )).to(beVoid())
             }
             
             it("Can save item and retrive item") {
-                
-                expect(try? SQLiteStorage.instance.createNetworkTables()).to(beVoid())
                 
                 expect(try? SQLiteStorage.instance.saveRequestHistory(
                     self.itemFactory(method: "POST", path: "/todos/1"))
@@ -62,13 +64,20 @@ class StorageSpec: QuickSpec {
                     self.itemFactory(method: "POST", path: "/todos/2")
                 )).to(beVoid())
                 
-//                let filteredItems = try? SQLiteStorage.instance.
+                guard let item = try? SQLiteStorage.instance.fetchAllRequests().first else {
+                    fail("Don't return any value")
+                    return
+                }
                 
+                let filteredItems = (try? SQLiteStorage.instance.fetchHistoryFor(item!.id!)) ?? []
+                expect(
+                    filteredItems.filter({ $0.request.id != item!.id! }).count
+                ).to(equal(0))
             }
             
-            it("Can delete database") {
-                expect(try? SQLiteStorage.instance.clear()).to(beVoid())
-            }
+//            it("Can delete database") {
+//                expect(try? SQLiteStorage.instance.clear()).to(beVoid())
+//            }
             
         }
     }

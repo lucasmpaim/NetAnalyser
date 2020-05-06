@@ -18,5 +18,13 @@
   "platforms": {
     "ios": "12.0"
   },
-  "source_files": "Sources/**/*.swift"
+  "source_files": "Sources/**/*.swift",
+  "dependencies": {
+    "SnapKit": [
+      "~> 5.0.1"
+    ],
+    "AFDateHelper": [
+      "~> 4.3.0"
+    ]
+  }
 }

@@ -19,8 +19,15 @@ struct TableConstants {
         method VARCHAR(9) NOT NULL,
         server TEXT NOT NULL,
         path TEXT NOT NULL,
-        UNIQUE(path, server, method) ON CONFLICT REPLACE
+        UNIQUE(path, server, method) ON CONFLICT ABORT
     );
+    """
+    
+    static let kCheckIfExistsRequestSQL = """
+    SELECT request_id FROM \(kRequestTableName)
+        WHERE method = ? AND
+        server = ? AND
+        path = ?
     """
     
     static let kRequestHistoryCreationTableSQL = """
@@ -61,6 +68,8 @@ struct TableConstants {
     FROM \(kRequestHistoryTableName) AS h
         INNER JOIN \(kRequestTableName) AS r ON
         r.request_id = h.request_id
+    
+    ORDER BY h.start_time DESC
     """
     
     static let kSelectAllRequestsSQL = """
@@ -82,5 +91,7 @@ struct TableConstants {
         r.request_id = h.request_id
     WHERE
         r.request_id = ?
+    
+    ORDER BY h.start_time DESC
     """
 }

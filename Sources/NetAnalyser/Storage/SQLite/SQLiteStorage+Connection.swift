@@ -28,24 +28,23 @@ extension SQLiteStorage {
     }
     
     func withConnection(actions: (OpaquePointer?) throws -> Void) throws {
-        guard let dbConnection = try? openDatabaseConnection() else { throw DatabaseConnectionError() }
+        guard let dbConnection = try? openDatabaseConnection() else {
+            throw DatabaseConnectionError()
+        }
         defer { sqlite3_close(dbConnection) }
+        try createNetworkTables(connection: dbConnection)
         try actions(dbConnection)
     }
     
-    func createNetworkTables() throws {
-        
-        try withConnection { dbConnection in
-            var creationTableStatement: OpaquePointer?
-            try [TableConstants.kRequestCreationTableSQL, TableConstants.kRequestHistoryCreationTableSQL].forEach {
-                guard sqlite3_prepare_v2(dbConnection, $0, -1, &creationTableStatement, nil) == SQLITE_OK,
-                    sqlite3_step(creationTableStatement) == SQLITE_DONE else {
-                        throw DatabaseCreationTableError()
-                }
+    func createNetworkTables(connection: OpaquePointer?) throws {
+        var creationTableStatement: OpaquePointer?
+        try [TableConstants.kRequestCreationTableSQL, TableConstants.kRequestHistoryCreationTableSQL].forEach {
+            guard sqlite3_prepare_v2(connection, $0, -1, &creationTableStatement, nil) == SQLITE_OK,
+                sqlite3_step(creationTableStatement) == SQLITE_DONE else {
+                    throw DatabaseCreationTableError()
             }
-            sqlite3_finalize(creationTableStatement)
         }
-        
+        sqlite3_finalize(creationTableStatement)
     }
 
     

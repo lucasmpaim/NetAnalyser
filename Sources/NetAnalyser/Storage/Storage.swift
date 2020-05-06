@@ -14,4 +14,5 @@ public protocol NetworkStorage {
     func fetchAllHistory() throws -> [RequestHistory]
     func fetchAllRequests() throws -> [Request]
     func clear() throws
+    func fetchIdForRequest(method: String, path: String, server: String) throws -> Int?
 }

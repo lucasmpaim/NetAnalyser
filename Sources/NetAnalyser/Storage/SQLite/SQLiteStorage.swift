@@ -14,13 +14,16 @@ public class SQLiteStorage : NetworkStorage {
     let dbPath = "netanalyserdb.sqlite3"
         
     private init() { }
-
     
     public func saveRequestHistory(_ request: RequestHistory) throws {
                 
         func saveRequest() throws -> Int {
             //method, server, path
-            return try makeInsertion(sql: TableConstants.kRequestTableInsertSQL) { statement in
+            return try fetchIdForRequest(method: request.request.method,
+                                         path: request.request.path,
+                                         server: request.request.server) ??
+            
+            makeInsertion(sql: TableConstants.kRequestTableInsertSQL) { statement in
                 sqlite3_bind_text(statement, 1, request.request.method.utf8String, -1, nil)
                 sqlite3_bind_text(statement, 2, request.request.server.utf8String, -1, nil)
                 sqlite3_bind_text(statement, 3, request.request.path.utf8String, -1, nil)
@@ -50,9 +53,9 @@ public class SQLiteStorage : NetworkStorage {
     public func fetchAllHistory() throws -> [RequestHistory] {
         var response: [RequestHistory] = []
         
-        try withConnection { dbConenction in
+        try withConnection { dbConnection in
             var queryStatement: OpaquePointer?
-            guard sqlite3_prepare_v2(dbConenction, TableConstants.kSelectRequestHistorySQL,
+            guard sqlite3_prepare_v2(dbConnection, TableConstants.kSelectRequestHistorySQL,
                                      -1, &queryStatement, nil) == SQLITE_OK else {
                 throw DatabaseConnectionError()
             }
@@ -88,9 +91,9 @@ public class SQLiteStorage : NetworkStorage {
     public func fetchAllRequests() throws -> [Request] {
         var response: [Request] = []
         
-        try withConnection { dbConenction in
+        try withConnection { dbConnection in
             var queryStatement: OpaquePointer?
-            guard sqlite3_prepare_v2(dbConenction, TableConstants.kSelectAllRequestsSQL,
+            guard sqlite3_prepare_v2(dbConnection, TableConstants.kSelectAllRequestsSQL,
                                      -1, &queryStatement, nil) == SQLITE_OK else {
                 throw DatabaseConnectionError()
             }
@@ -111,9 +114,9 @@ public class SQLiteStorage : NetworkStorage {
     public func fetchHistoryFor(_ requestId: Int) throws -> [RequestHistory] {
         var response: [RequestHistory] = []
         
-        try withConnection { dbConenction in
+        try withConnection { dbConnection in
             var queryStatement: OpaquePointer?
-            guard sqlite3_prepare_v2(dbConenction, TableConstants.kSelectRequestHistoryByRequestSQL,
+            guard sqlite3_prepare_v2(dbConnection, TableConstants.kSelectRequestHistoryByRequestSQL,
                                      -1, &queryStatement, nil) == SQLITE_OK else {
                 throw DatabaseConnectionError()
             }
@@ -151,18 +154,30 @@ public class SQLiteStorage : NetworkStorage {
         try deleteDatabase()
     }
 
-}
-
-
-
-extension String {
-    var utf8String : UnsafePointer<Int8>? {
-        (self as NSString).utf8String
-    }
-}
-
-extension UnsafePointer where Pointee == UInt8 {
-    var safeString: String {
-        String(cString: self)
+    
+    public func fetchIdForRequest(method: String, path: String, server: String) throws -> Int? {
+        
+        var idOfRequest: Int? = nil
+        
+        try withConnection { dbConnection in
+            
+            var queryStatement: OpaquePointer?
+            guard sqlite3_prepare_v2(dbConnection, TableConstants.kCheckIfExistsRequestSQL,
+                                     -1, &queryStatement, nil) == SQLITE_OK else {
+                throw DatabaseConnectionError()
+            }
+            
+            sqlite3_bind_text(queryStatement, 1, method.utf8String, -1, nil)
+            sqlite3_bind_text(queryStatement, 2, server.utf8String, -1, nil)
+            sqlite3_bind_text(queryStatement, 3, path.utf8String, -1, nil)
+            
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+                idOfRequest = Int(sqlite3_column_int(queryStatement, 0))
+            }
+            sqlite3_finalize(queryStatement)
+        }
+        
+        return idOfRequest
+        
     }
 }

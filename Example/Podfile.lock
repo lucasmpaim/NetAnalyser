@@ -1,10 +1,13 @@
 PODS:
+  - AFDateHelper (4.3.0)
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
-  - NetAnalyser (0.0.1)
+  - NetAnalyser (0.0.1):
+    - AFDateHelper (~> 4.3.0)
+    - SnapKit (~> 5.0.1)
   - Nimble (7.3.4)
   - Nimble-Snapshots (6.3.0):
     - Nimble-Snapshots/Core (= 6.3.0)
@@ -12,6 +15,7 @@ PODS:
     - FBSnapshotTestCase (~> 2.0)
     - Nimble (~> 7.0)
   - Quick (1.2.0)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - FBSnapshotTestCase (~> 2.1.4)
@@ -22,21 +26,25 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AFDateHelper
     - FBSnapshotTestCase
     - Nimble
     - Nimble-Snapshots
     - Quick
+    - SnapKit
 
 EXTERNAL SOURCES:
   NetAnalyser:
     :path: "../"
 
 SPEC CHECKSUMS:
+  AFDateHelper: b769c07d3d4784ee9a74633285304261bb27dc52
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  NetAnalyser: b6010dd1a704849f1583caf5842abb0ed5ea350a
+  NetAnalyser: fcdd45fbba775076dbd6ae51bb0a80201a3fab10
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
   Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
 PODFILE CHECKSUM: c4def88c23d268d1cffda029434e4c08a29c0a6f
 

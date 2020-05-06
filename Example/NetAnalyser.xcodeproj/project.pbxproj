@@ -14,6 +14,8 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		B1FA013C6551A863FDD9968A /* Pods_NetAnalyser_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D55F6FE34B358D5CAC8CE6BA /* Pods_NetAnalyser_Example.framework */; };
+		F2A4119B2462FFAE00837652 /* OperatorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A4119A2462FFAE00837652 /* OperatorsTests.swift */; };
+		F2A411A12463032800837652 /* BaseViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A411A02463032800837652 /* BaseViewControllerTests.swift */; };
 		F2D84DFB2460394C0070438D /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D84DF9246039380070438D /* StorageTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +48,8 @@
 		B1165204556EF1A156B8FB54 /* NetAnalyser.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NetAnalyser.podspec; path = ../NetAnalyser.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D55F6FE34B358D5CAC8CE6BA /* Pods_NetAnalyser_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetAnalyser_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5801C01D7FB5A792E163827 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		F2A4119A2462FFAE00837652 /* OperatorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorsTests.swift; sourceTree = "<group>"; };
+		F2A411A02463032800837652 /* BaseViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewControllerTests.swift; sourceTree = "<group>"; };
 		F2D84DF9246039380070438D /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +130,8 @@
 			children = (
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				F2D84DF9246039380070438D /* StorageTests.swift */,
+				F2A4119A2462FFAE00837652 /* OperatorsTests.swift */,
+				F2A411A02463032800837652 /* BaseViewControllerTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -314,11 +320,15 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NetAnalyser_Example/Pods-NetAnalyser_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework",
 				"${BUILT_PRODUCTS_DIR}/NetAnalyser/NetAnalyser.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDateHelper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NetAnalyser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -366,6 +376,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2D84DFB2460394C0070438D /* StorageTests.swift in Sources */,
+				F2A411A12463032800837652 /* BaseViewControllerTests.swift in Sources */,
+				F2A4119B2462FFAE00837652 /* OperatorsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
