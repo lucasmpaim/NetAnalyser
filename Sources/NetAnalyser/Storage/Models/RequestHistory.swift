@@ -12,7 +12,7 @@ public struct RequestHistory {
 
     public let startTime: Date
     public let endTime: Date
-    public let httpStatus: Int
+    public let httpStatus: Int?
     
     public let body: String?
     public let response: String?
@@ -22,7 +22,7 @@ public struct RequestHistory {
     public let request: Request
     public let id: Int?
 
-    public init(request: Request, startTime: Date, endTime: Date, httpStatus: Int,
+    public init(request: Request, startTime: Date, endTime: Date, httpStatus: Int?,
                 body: String?, response: String?,
                 errorDescription: String?, curl: String?) {
         self.startTime = startTime
@@ -36,7 +36,7 @@ public struct RequestHistory {
         self.id = nil
     }
     
-    init(request: Request, startTime: Date, endTime: Date, httpStatus: Int,
+    init(request: Request, startTime: Date, endTime: Date, httpStatus: Int?,
                 body: String?, response: String?,
                 errorDescription: String?, curl: String?, id: Int) {
         self.startTime = startTime

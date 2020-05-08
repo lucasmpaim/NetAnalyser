@@ -8,8 +8,8 @@
 
 import UIKit
 
-@objc protocol RequestHistoryListRoutingLogic {
-    func routeToRequestHistoryDetail()
+protocol RequestHistoryListRoutingLogic {
+    func routeToRequestHistoryDetail(history: RequestHistory)
 }
 
 protocol RequestHistoryListDataPassing {
@@ -23,8 +23,10 @@ class RequestHistoryListRouter: NSObject, RequestHistoryListRoutingLogic, Reques
     var dataStore: RequestHistoryListDataStore?
 
     
-    func routeToRequestHistoryDetail() {
+    func routeToRequestHistoryDetail(history: RequestHistory) {
         let vc = RequestHistoryDetailViewController()
+        guard var destDs = vc.router?.dataStore else { return }
+        destDs.history = history
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

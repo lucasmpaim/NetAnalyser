@@ -25,6 +25,6 @@ extension RequestHistoryListViewController: UITableViewDelegate, UITableViewData
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        router?.routeToRequestHistoryDetail()
+        router?.routeToRequestHistoryDetail(history: allItems[indexPath.row])
     }
 }

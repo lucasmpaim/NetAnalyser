@@ -26,7 +26,7 @@ public class RequestHistoryListViewController: BaseViewController {
     //MARK: Views
     lazy var tableView: UITableView = {
         UITableView() <-< {
-            $0.backgroundColor = .white
+            $0.backgroundColor = UIColor.backgroundColor
             $0.register(RequestListCell.self,
                         forCellReuseIdentifier: RequestListCell.reuseIdentifier)
             $0.delegate = self

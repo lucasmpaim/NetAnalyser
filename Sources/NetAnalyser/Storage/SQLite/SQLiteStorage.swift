@@ -41,7 +41,11 @@ public class SQLiteStorage : NetworkStorage {
                 sqlite3_bind_text(statement, 4, request.response?.utf8String, -1, nil)
                 sqlite3_bind_text(statement, 5, request.errorDescription?.utf8String, -1, nil)
                 sqlite3_bind_text(statement, 6, request.curl?.utf8String, -1, nil)
-                sqlite3_bind_int(statement, 7, Int32(request.httpStatus))
+                if request.httpStatus != nil {
+                    sqlite3_bind_int(statement, 7, Int32(request.httpStatus!))
+                } else {
+                    sqlite3_bind_int(statement, 7, Int32(0))
+                }
                 sqlite3_bind_int(statement, 8, Int32(requestId))
             }
         }

@@ -39,7 +39,7 @@ struct TableConstants {
         response TEXT,
         error_description TEXT,
         curl TEXT,
-        http_status INT NOT NULL,
+        http_status INT,
         request_id INT NOT NULL,
         FOREIGN KEY(request_id) REFERENCES \(kRequestTableName)(request_id)
     );

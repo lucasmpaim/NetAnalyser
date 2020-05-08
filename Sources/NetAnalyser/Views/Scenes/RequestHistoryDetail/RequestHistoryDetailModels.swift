@@ -10,4 +10,14 @@ import UIKit
 
 enum RequestHistoryDetail {
 
+    enum GetInfo {
+        struct Request { }
+        struct Response {
+            let history: RequestHistory
+        }
+        struct ViewModel {
+            let history: RequestHistory
+        }
+    }
+    
 }

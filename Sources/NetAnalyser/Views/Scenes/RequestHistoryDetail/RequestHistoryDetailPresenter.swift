@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RequestHistoryDetailPresentationLogic {
-
+    func presentDetail(response: RequestHistoryDetail.GetInfo.Response)
 }
 
 class RequestHistoryDetailPresenter: RequestHistoryDetailPresentationLogic {
@@ -17,4 +17,7 @@ class RequestHistoryDetailPresenter: RequestHistoryDetailPresentationLogic {
     // Var's
     weak var viewController: RequestHistoryDetailDisplayLogic?
 
+    func presentDetail(response: RequestHistoryDetail.GetInfo.Response) {
+        viewController?.presentDetail(viewModel: RequestHistoryDetail.GetInfo.ViewModel(history: response.history))
+    }
 }

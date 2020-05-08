@@ -15,14 +15,12 @@ class RequestListCell: UITableViewCell {
     static let reuseIdentifier = "RequestListCell"
     let kMargin = 20
     
-    var successColor: UIColor { #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1) }
-    var errorColor : UIColor { #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1) }
     
     //MARK: Views
     lazy var responseStatusCodeLabel: UILabel = {
         UILabel() <-< {
             $0.numberOfLines = 1
-            $0.textColor = .black
+            $0.textColor = .titleColor
             $0.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         }
     }()
@@ -30,7 +28,7 @@ class RequestListCell: UITableViewCell {
     lazy var pathLabel: UILabel = {
         UILabel() <-< {
             $0.numberOfLines = 0
-            $0.textColor = .black
+            $0.textColor = .titleColor
             $0.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         }
     }()
@@ -113,11 +111,15 @@ class RequestListCell: UITableViewCell {
     }
     
     func populateFor(history: RequestHistory) {
-        responseStatusCodeLabel.text = "\(history.httpStatus)"
-        responseStatusCodeLabel.textColor = (history.httpStatus ~~ 200..<300) ? successColor : errorColor
+        if let httpStatus = history.httpStatus {
+            responseStatusCodeLabel.text = "\(httpStatus)"
+        } else {
+            responseStatusCodeLabel.text = " - "
+        }
+        responseStatusCodeLabel.textColor = (history.httpStatus ~~ 200..<300) ? .successColor : .errorColor
         pathLabel.text = "\(history.request.method.uppercased()) \(history.request.path)"
         serverLabel.text = history.request.server
-        serverLabel.textColor = history.request.server.hasPrefix("https://") ? successColor : errorColor
+        serverLabel.textColor = history.request.server.hasPrefix("https://") ? .successColor : .errorColor
         hourLabel.text = history.startTime.toStringWithRelativeTime()
         durationLabel.text = "\(history.endTime.since(history.startTime, in: .second))s"
     }
