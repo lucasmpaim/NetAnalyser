@@ -119,11 +119,14 @@ class RequestListCell: UITableViewCell {
         } else {
             responseStatusCodeLabel.text = " - "
         }
+        
+        let difference = Int(history.endTime.timeIntervalSince(history.startTime))
+        
         responseStatusCodeLabel.textColor = (history.httpStatus ~~ 200..<300) ? .successColor : .errorColor
         pathLabel.text = "\(history.request.method.uppercased()) \(history.request.path)"
         serverLabel.text = history.request.server
         serverLabel.textColor = history.request.server.hasPrefix("https://") ? .successColor : .errorColor
         hourLabel.text = history.startTime.toStringWithRelativeTime()
-        durationLabel.text = "\(history.endTime.since(history.startTime, in: .second))s"
+        durationLabel.text = "\(difference)ms"
     }
 }

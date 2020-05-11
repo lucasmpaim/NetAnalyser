@@ -12,10 +12,13 @@ extension RequestHistoryDetailViewController: RequestHistoryDetailDisplayLogic {
     func presentDetail(viewModel: RequestHistoryDetail.GetInfo.ViewModel) {
         let history = viewModel.history
         
+        let difference = Int(history.endTime.timeIntervalSince(history.startTime))
+
+        
         overviewView.serverLabel.value = history.request.server
         overviewView.uriLabel.value = "\(history.request.method.uppercased()) \(history.request.path)"
         overviewView.usingSSL.value = "\(history.request.server.hasPrefix("https://"))"
-        overviewView.durationLabel.value = "\(history.endTime.since(history.startTime, in: .second))s"
+        overviewView.durationLabel.value = "\(difference)ms"
         requestView.text = history.curl ?? " - "
         responseView.text = history.response ?? " - "
         

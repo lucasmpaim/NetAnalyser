@@ -114,7 +114,7 @@ class RequestHistoryDetailViewController: BaseViewController {
     }
     
     @objc func shareRequest() {
-        let textShare: [Any] = [ requestView.text ]
+        let textShare = [ requestView.text! ]
         let activityViewController = UIActivityViewController(activityItems: textShare , applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
     }
