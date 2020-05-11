@@ -7,8 +7,11 @@
 
 import Foundation
 import UIKit
-import AFDateHelper
-
+#if COCOAPODS
+    import AFDateHelper
+#else
+    import DateHelper
+#endif
 
 class RequestListCell: UITableViewCell {
     
