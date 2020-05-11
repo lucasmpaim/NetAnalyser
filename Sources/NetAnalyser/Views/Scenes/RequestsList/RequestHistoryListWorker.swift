@@ -11,10 +11,10 @@ import UIKit
 class RequestHistoryListWorker {
 
     func fetchHistory() -> [RequestHistory] {
-        (try? SQLiteStorage.instance.fetchAllHistory()) ?? []
+        (try? NetworkAnalyser.instance.storageBackend.fetchAllHistory()) ?? []
     }
     
     func cleanHistory()  {
-        try? SQLiteStorage.instance.clear()
+        try? NetworkAnalyser.instance.storageBackend.clear()
     }
 }

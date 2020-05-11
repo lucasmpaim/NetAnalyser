@@ -19,7 +19,7 @@ NetAnalyser is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'NetAnalyser'
+pod 'NetAnalyser', :git => 'https://github.com/lucasmpaim/NetAnalyser.git', :branch => 'master'
 ```
 
 ### SPM
@@ -27,12 +27,12 @@ pod 'NetAnalyser'
 Add the follow on your `Package.swift`
 
 ```swfit
-.package(url: "<<repo>>", from: "0.0.1")
+.package(url: "https://github.com/lucasmpaim/NetAnalyser.git", from: "0.0.1")
 ```
 
 ## Author
 
-lucasmpaim1@gmail.com, lucasmpaim1@gmail.com
+Lucas Mrowskovsky Paim
 
 ## License
 
