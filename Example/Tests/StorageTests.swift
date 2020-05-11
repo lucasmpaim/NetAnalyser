@@ -75,9 +75,9 @@ class StorageSpec: QuickSpec {
                 ).to(equal(0))
             }
             
-//            it("Can delete database") {
-//                expect(try? SQLiteStorage.instance.clear()).to(beVoid())
-//            }
+            it("Can delete database") {
+                expect(try? SQLiteStorage.instance.clear()).to(beVoid())
+            }
             
         }
     }

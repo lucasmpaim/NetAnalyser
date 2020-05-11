@@ -18,19 +18,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-//        let request = Request(method: "POST",
-//                              server: "https://jsonplaceholder.typicode.com",
-//                              path: "/todos/1")
-//
-//        let item = RequestHistory(request: request,
-//                                  startTime: Date(),
-//                                  endTime: Date().addingTimeInterval(Double.random(in: 200 ..< 800)),
-//                                  httpStatus: 400,
-//                                  body: nil,
-//                                  response: "{'response': 'teste'}",
-//                                  errorDescription: nil, curl: "curl -X GET \"https://jsonplaceholder.typicode.com/todos/1\"")
+        let request = Request(method: "POST",
+                              server: "https://jsonplaceholder.typicode.com",
+                              path: "/todos/1")
 
-//        try! SQLiteStorage.instance.saveRequestHistory(item)
+        let item = RequestHistory(request: request,
+                                  startTime: Date(),
+                                  endTime: Date().addingTimeInterval(Double.random(in: 200 ..< 800)),
+                                  httpStatus: 400,
+                                  body: nil,
+                                  response: "{'response': 'teste'}",
+                                  errorDescription: nil, curl: "curl -X GET \"https://jsonplaceholder.typicode.com/todos/1\"")
+
+        try! SQLiteStorage.instance.saveRequestHistory(item)
         
         return true
     }

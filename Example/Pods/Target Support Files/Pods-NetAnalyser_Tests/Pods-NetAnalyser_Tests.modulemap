@@ -1,6 +1,0 @@
-framework module Pods_NetAnalyser_Tests {
-  umbrella header "Pods-NetAnalyser_Tests-umbrella.h"
-
-  export *
-  module * { export * }
-}
