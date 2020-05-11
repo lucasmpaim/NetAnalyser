@@ -31,7 +31,7 @@ public class RequestHistoryListViewController: BaseViewController {
                         forCellReuseIdentifier: RequestListCell.reuseIdentifier)
             $0.delegate = self
             $0.dataSource = self
-            $0.rowHeight = UITableViewAutomaticDimension
+            $0.rowHeight = UITableView.automaticDimension
             $0.estimatedRowHeight = 80
         }
     }()

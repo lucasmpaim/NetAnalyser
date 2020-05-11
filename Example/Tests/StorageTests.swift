@@ -69,9 +69,9 @@ class StorageSpec: QuickSpec {
                     return
                 }
                 
-                let filteredItems = (try? SQLiteStorage.instance.fetchHistoryFor(item!.id!)) ?? []
+                let filteredItems = (try? SQLiteStorage.instance.fetchHistoryFor(item.id!)) ?? []
                 expect(
-                    filteredItems.filter({ $0.request.id != item!.id! }).count
+                    filteredItems.filter({ $0.request.id != item.id! }).count
                 ).to(equal(0))
             }
             
