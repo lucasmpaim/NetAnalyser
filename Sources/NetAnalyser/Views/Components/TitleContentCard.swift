@@ -37,7 +37,7 @@ class TitleContentCard: BaseCustomView {
 
     override func setupUI() {
         super.setupUI()
-        backgroundColor = .white
+        backgroundColor = .cardBackgroundColor
         layer.cornerRadius = 5
         clipsToBounds = true
 

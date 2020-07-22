@@ -32,7 +32,13 @@ extension UIColor {
             fallbackMode: UIColor(white: 229/255, alpha: 1))
     }()
 
-    static let contentBackgroundColor: UIColor  = {
+    static let cardBackgroundColor: UIColor = {
+        colorFactory(
+            darkMode: .black,
+            fallbackMode: .white)
+    }()
+
+    static let contentBackgroundColor: UIColor = {
         colorFactory(
             darkMode: UIColor(white: 28/255, alpha: 1),
             fallbackMode: UIColor(white: 242/255, alpha: 1))
