@@ -23,6 +23,7 @@ class RequestHistoryDetailView: BaseCustomView {
 
     override func setupUI() {
         super.setupUI()
+        clipsToBounds = true
 
         addSubview(contentSegmentedControl)
         contentSegmentedControl.snp.makeConstraints { make in
