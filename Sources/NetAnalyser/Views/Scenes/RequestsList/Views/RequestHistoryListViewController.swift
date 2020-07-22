@@ -55,6 +55,7 @@ public class RequestHistoryListViewController: BaseViewController {
     // Load
     public override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Request History"
         interactor?.fetchAllHistory(request: RequestHistoryList.GetHistory.Request())
     }
 
@@ -62,7 +63,7 @@ public class RequestHistoryListViewController: BaseViewController {
         view.addSubview(tableView)
         navigationItem.rightBarButtonItems = [cleanButton]
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
             make.trailing.leading.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(20)
         }

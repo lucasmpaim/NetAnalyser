@@ -5,9 +5,7 @@
 //  Created by Lucas Paim on 07/05/20.
 //
 
-import Foundation
 import UIKit
-
 
 class DetailView: BaseCustomView {
     
