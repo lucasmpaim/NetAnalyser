@@ -28,3 +28,15 @@ extension UnsafePointer where Pointee == UInt8 {
         String(cString: self)
     }
 }
+
+
+extension Data {
+    var prettyJSON: String {
+        guard let json = try? JSONSerialization.jsonObject(with: self, options: .mutableContainers),
+           let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) else {
+            return "json data malformed"
+        }
+        
+        return String(decoding: jsonData, as: UTF8.self)
+    }
+}

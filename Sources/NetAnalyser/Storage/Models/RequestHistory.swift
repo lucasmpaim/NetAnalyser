@@ -21,24 +21,10 @@ public struct RequestHistory {
     
     public let request: Request
     public let id: Int?
-
+   
     public init(request: Request, startTime: Date, endTime: Date, httpStatus: Int?,
                 body: String?, response: String?,
-                errorDescription: String?, curl: String?) {
-        self.startTime = startTime
-        self.endTime = endTime
-        self.httpStatus = httpStatus
-        self.body = body
-        self.response = response
-        self.errorDescription = errorDescription
-        self.curl = curl
-        self.request = request
-        self.id = nil
-    }
-    
-    init(request: Request, startTime: Date, endTime: Date, httpStatus: Int?,
-                body: String?, response: String?,
-                errorDescription: String?, curl: String?, id: Int) {
+                errorDescription: String?, curl: String?, id: Int? = nil) {
         self.startTime = startTime
         self.endTime = endTime
         self.httpStatus = httpStatus
@@ -50,4 +36,19 @@ public struct RequestHistory {
         self.id = id
     }
     
+    public init(request: Request, startTime: Date, endTime: Date, httpStatus: Int?,
+                bodyData: Data?, response: String?,
+                errorDescription: String?, curl: String?, id: Int? = nil) {
+        self.startTime = startTime
+        self.endTime = endTime
+        self.httpStatus = httpStatus
+        self.body = bodyData?.prettyJSON
+        self.response = response
+        self.errorDescription = errorDescription
+        self.curl = curl
+        self.request = request
+        self.id = id
+    }
+    
 }
+

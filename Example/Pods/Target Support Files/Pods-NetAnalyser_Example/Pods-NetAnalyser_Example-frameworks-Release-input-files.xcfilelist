@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-NetAnalyser_Example/Pods-NetAnalyser_Example-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework
+${BUILT_PRODUCTS_DIR}/NetAnalyser/NetAnalyser.framework
+${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework

@@ -62,7 +62,11 @@ class TitleContentCard: BaseCustomView {
         }
     }
 
-    func configure(title: String?, content: String?, canCopy: Bool = false) {
+    func configure(
+        title: String?,
+        content: String?,
+        canCopy: Bool = false
+    ) {
         titleLabel.text = title
         contentLabel.text = content
         copyButton.isHidden = !canCopy
