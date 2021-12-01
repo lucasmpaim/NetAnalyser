@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                   endTime: Date().addingTimeInterval(Double.random(in: 200 ..< 800)),
                                   httpStatus: 400,
                                   body: nil,
-                                  response: "{\"response\": \"teste\"}",
+                                  response: .init(string: "{\"response\": \"teste\"}"),
                                   errorDescription: nil, curl: "curl -X GET \"https://jsonplaceholder.typicode.com/todos/1\"")
 
         try! SQLiteStorage.instance.saveRequestHistory(item)

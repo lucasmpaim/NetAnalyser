@@ -78,8 +78,8 @@ public class SQLiteStorage : NetworkStorage {
                     startTime: Date(timeIntervalSince1970: sqlite3_column_double(queryStatement, 4)),
                     endTime: Date(timeIntervalSince1970: sqlite3_column_double(queryStatement, 5)),
                     httpStatus: Int(sqlite3_column_int(queryStatement, 9)),
-                    body: sqlite3_column_text(queryStatement, 3)?.safeString,
-                    response: sqlite3_column_text(queryStatement, 6)?.safeString,
+                    body: .init(string: sqlite3_column_text(queryStatement, 3)?.safeString),
+                    response: .init(string: sqlite3_column_text(queryStatement, 6)?.safeString),
                     errorDescription: sqlite3_column_text(queryStatement, 7)?.safeString,
                     curl: sqlite3_column_text(queryStatement, 8)?.safeString,
                     id: Int(sqlite3_column_int(queryStatement, 10))
@@ -141,8 +141,8 @@ public class SQLiteStorage : NetworkStorage {
                     startTime: Date(timeIntervalSince1970: sqlite3_column_double(queryStatement, 4)),
                     endTime: Date(timeIntervalSince1970: sqlite3_column_double(queryStatement, 5)),
                     httpStatus: Int(sqlite3_column_int(queryStatement, 9)),
-                    body: sqlite3_column_text(queryStatement, 3)?.safeString,
-                    response: sqlite3_column_text(queryStatement, 6)?.safeString,
+                    body: .init(string: sqlite3_column_text(queryStatement, 3)?.safeString),
+                    response: .init(string: sqlite3_column_text(queryStatement, 6)?.safeString),
                     errorDescription: sqlite3_column_text(queryStatement, 7)?.safeString,
                     curl: sqlite3_column_text(queryStatement, 8)?.safeString,
                     id: Int(sqlite3_column_int(queryStatement, 10))

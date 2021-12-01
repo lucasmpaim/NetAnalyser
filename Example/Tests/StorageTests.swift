@@ -93,7 +93,7 @@ class StorageSpec: QuickSpec {
                                   endTime: Date().addingTimeInterval(Double.random(in: 200 ..< 800)),
                                   httpStatus: 200,
                                   body: nil,
-                                  response: "{'response': 'teste'}",
+                                  response: .init(string: "{'response': 'teste'}"),
                                   errorDescription: nil, curl: "curl -X \(method) \"https://jsonplaceholder.typicode.com/\(path)\"")
         return item
     }
