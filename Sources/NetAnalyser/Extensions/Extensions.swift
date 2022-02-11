@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     var utf8String : UnsafePointer<Int8>? {
