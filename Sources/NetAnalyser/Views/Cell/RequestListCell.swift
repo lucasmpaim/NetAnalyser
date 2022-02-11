@@ -7,16 +7,12 @@
 
 import Foundation
 import UIKit
-#if COCOAPODS
-    import AFDateHelper
-#else
-    import DateHelper
-#endif
+
 
 class RequestListCell: UITableViewCell {
     
     static let reuseIdentifier = "RequestListCell"
-    let kMargin = 20
+    let kMargin: CGFloat = 20
     
     
     //MARK: Views
@@ -83,34 +79,36 @@ class RequestListCell: UITableViewCell {
     
     func setupUI() {
         selectionStyle = .gray
-        addSubview(responseStatusCodeLabel)
-        responseStatusCodeLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(kMargin)
-            make.top.equalToSuperview().inset(kMargin)
-            make.width.equalTo(40)
-        }
-        
-        addSubview(pathLabel)
-        pathLabel.snp.makeConstraints { make in
-            make.leading.equalTo(responseStatusCodeLabel.snp.trailing).offset(kMargin)
-            make.trailing.equalToSuperview().inset(kMargin)
-            make.top.equalTo(responseStatusCodeLabel.snp.top)
-        }
+        viewCodeAddSubView(responseStatusCodeLabel)
+        viewCodeAddSubView(pathLabel)
+        viewCodeAddSubView(serverLabel)
+        viewCodeAddSubView(bottomStack)
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            responseStatusCodeLabel.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor, constant: kMargin),
+            responseStatusCodeLabel.topAnchor.constraint(
+                equalTo: self.topAnchor, constant: kMargin),
+            responseStatusCodeLabel.widthAnchor.constraint(equalToConstant: 40),
 
-        addSubview(serverLabel)
-        serverLabel.snp.makeConstraints { make in
-            make.leading.equalTo(responseStatusCodeLabel.snp.trailing).offset(kMargin)
-            make.trailing.equalToSuperview().inset(kMargin)
-            make.top.equalTo(pathLabel.snp.bottom)
-        }
+            pathLabel.leadingAnchor.constraint(
+                equalTo: responseStatusCodeLabel.trailingAnchor, constant: 8),
+            pathLabel.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor, constant: kMargin),
+            pathLabel.topAnchor.constraint(equalTo: responseStatusCodeLabel.topAnchor),
 
-        addSubview(bottomStack)
-        bottomStack.snp.makeConstraints { make in
-            make.top.equalTo(serverLabel.snp.bottom)
-            make.leading.equalTo(pathLabel.snp.leading)
-            make.trailing.equalTo(pathLabel.snp.trailing)
-            make.bottom.equalToSuperview().inset(kMargin)
-        }
+            serverLabel.leadingAnchor.constraint(equalTo: pathLabel.leadingAnchor),
+            serverLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: kMargin),
+            serverLabel.topAnchor.constraint(equalTo: pathLabel.bottomAnchor),
+            
+            bottomStack.topAnchor.constraint(equalTo: serverLabel.bottomAnchor),
+            bottomStack.leadingAnchor.constraint(equalTo: pathLabel.leadingAnchor),
+            bottomStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -kMargin),
+            bottomStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -kMargin)
+        ])
     }
     
     func populateFor(history: RequestHistory) {
@@ -126,7 +124,7 @@ class RequestListCell: UITableViewCell {
         pathLabel.text = "\(history.request.method.uppercased()) \(history.request.path)"
         serverLabel.text = history.request.server
         serverLabel.textColor = history.request.server.hasPrefix("https://") ? .successColor : .errorColor
-        hourLabel.text = history.startTime.toStringWithRelativeTime()
+        hourLabel.text = history.startTime.toString()
         durationLabel.text = "\(difference)ms"
     }
 }

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NetAnalyser'
-  s.version          = '0.0.3'
+  s.version          = '0.0.4'
   s.summary          = 'A simple network analyser for iOS based on Chunker and Alice'
 
 # This description is used to generate tags and improve search results.
@@ -37,6 +37,4 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-   s.dependency 'SnapKit', '~> 5.0.1'
-   s.dependency 'AFDateHelper', '~> 4.3.0'
 end

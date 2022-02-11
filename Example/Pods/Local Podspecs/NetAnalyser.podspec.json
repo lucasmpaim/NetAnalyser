@@ -1,6 +1,6 @@
 {
   "name": "NetAnalyser",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "summary": "A simple network analyser for iOS based on Chunker and Alice",
   "description": "A simple network analyser for iOS based on Chunker (Android) and Alice (Flutter)",
   "homepage": "https://github.com/lucasmpaim/NetAnalyser",
@@ -13,18 +13,10 @@
   },
   "source": {
     "git": "https://github.com/lucasmpaim/NetAnalyser.git",
-    "tag": "0.0.1"
+    "tag": "0.0.3"
   },
   "platforms": {
     "ios": "12.0"
   },
-  "source_files": "Sources/**/*.swift",
-  "dependencies": {
-    "SnapKit": [
-      "~> 5.0.1"
-    ],
-    "AFDateHelper": [
-      "~> 4.3.0"
-    ]
-  }
+  "source_files": "Sources/**/*.swift"
 }

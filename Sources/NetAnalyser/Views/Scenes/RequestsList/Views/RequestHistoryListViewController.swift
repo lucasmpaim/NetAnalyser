@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import SnapKit
 
 
-protocol RequestHistoryListDisplayLogic: class {
+protocol RequestHistoryListDisplayLogic: AnyObject {
     func displayAllHistory(viewModel: RequestHistoryList.GetHistory.ViewModel.Success)
     func displayCleanHistory(response: RequestHistoryList.CleanHistory.ViewModel.Success)
 }
@@ -60,13 +59,16 @@ public class RequestHistoryListViewController: BaseViewController {
     }
 
     override func setupUI() {
-        view.addSubview(tableView)
+        view.viewCodeAddSubView(tableView)
         navigationItem.rightBarButtonItems = [cleanButton]
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
-            make.trailing.leading.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(20)
-        }
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        let layoutGuide = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate(
+            tableView.edgeArchors(equalTo: layoutGuide)
+        )
     }
     
     @objc func didCleanTap() {

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SnapKit
+
 
 class RequestHistoryDetailResponseView: BaseCustomView {
     struct Content {
@@ -22,21 +22,28 @@ class RequestHistoryDetailResponseView: BaseCustomView {
         $0.isLayoutMarginsRelativeArrangement = true
     }
 
+    private lazy var scrollView: UIScrollView = .init()
+    
     override func setupUI() {
         super.setupUI()
         backgroundColor = .backgroundColor
-
-        let scrollView = UIScrollView()
-        addSubview(scrollView)
-        scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-
-        scrollView.addSubview(contentStackView)
-        contentStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.width.equalToSuperview()
-        }
+        viewCodeAddSubView(scrollView)
+        scrollView.viewCodeAddSubView(contentStackView)
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        let layoutGuide = safeAreaLayoutGuide
+        NSLayoutConstraint.activate(
+            scrollView.edgeArchors(equalTo: layoutGuide) +
+            contentStackView.edgeArchors(equalTo: scrollView) +
+            [
+                scrollView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                scrollView.heightAnchor.constraint(equalTo: heightAnchor),
+                scrollView.widthAnchor.constraint(equalTo: widthAnchor),
+                contentStackView.widthAnchor.constraint(equalTo: self.widthAnchor)
+            ]
+        )
     }
 
     func configure(with content: Content) {

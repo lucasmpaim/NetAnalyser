@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SnapKit
+
 
 class TitleContentCard: BaseCustomView {
 
@@ -41,25 +41,28 @@ class TitleContentCard: BaseCustomView {
         layer.cornerRadius = 5
         clipsToBounds = true
 
-        addSubview(copyButton)
-        copyButton.snp.makeConstraints { make in
-            make.width.equalTo(16)
-            make.height.equalTo(18)
-            make.trailing.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(8)
-        }
-
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(8)
-            make.trailing.equalTo(copyButton.snp.leading).offset(8)
-        }
-
-        addSubview(contentLabel)
-        contentLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.leading.trailing.bottom.equalToSuperview().inset(8)
-        }
+        viewCodeAddSubView(copyButton)
+        viewCodeAddSubView(titleLabel)
+        viewCodeAddSubView(contentLabel)
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            copyButton.widthAnchor.constraint(equalToConstant: 16),
+            copyButton.heightAnchor.constraint(equalToConstant: 18),
+            copyButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            copyButton.bottomAnchor.constraint(equalTo: self.topAnchor, constant: -8),
+            
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: copyButton.leadingAnchor, constant: -8),
+            
+            contentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            contentLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            contentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            contentLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8)
+        ])
     }
 
     func configure(

@@ -1,35 +1,27 @@
 PODS:
-  - AFDateHelper (4.3.0)
-  - NetAnalyser (0.0.1):
-    - AFDateHelper (~> 4.3.0)
-    - SnapKit (~> 5.0.1)
+  - NetAnalyser (0.0.3)
   - Nimble (9.2.1)
   - Quick (4.0.0)
-  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - NetAnalyser (from `../`)
-  - Nimble
-  - Quick
+  - Nimble (~> 9.2.1)
+  - Quick (~> 4.0.0)
 
 SPEC REPOS:
   trunk:
-    - AFDateHelper
     - Nimble
     - Quick
-    - SnapKit
 
 EXTERNAL SOURCES:
   NetAnalyser:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFDateHelper: b769c07d3d4784ee9a74633285304261bb27dc52
-  NetAnalyser: fcdd45fbba775076dbd6ae51bb0a80201a3fab10
+  NetAnalyser: c0da7d06ccf1459f2529b7009b348cda2f35a756
   Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
   Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 09e187a4ec3dd9fb3e7ff8d13bf7649d675615a8
+PODFILE CHECKSUM: c343d1cf2c997b656eb4e1cdf45b103b13b471cc
 
 COCOAPODS: 1.11.2

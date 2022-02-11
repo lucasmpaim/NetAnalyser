@@ -46,11 +46,10 @@ class DetailView: BaseCustomView {
     }
     
     override func setupUI() {
-        addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.trailing.leading
-                .bottom.top.equalToSuperview()
-        }
+        viewCodeAddSubView(stackView)
+        NSLayoutConstraint.activate(
+            stackView.edgeArchors(equalTo: self)
+        )
     }
     
 }

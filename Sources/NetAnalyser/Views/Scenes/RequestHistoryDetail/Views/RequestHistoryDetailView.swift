@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SnapKit
+
 
 class RequestHistoryDetailView: BaseCustomView {
         
@@ -19,37 +19,48 @@ class RequestHistoryDetailView: BaseCustomView {
     lazy var overviewView = RequestHistoryDetailOverviewView()
     lazy var requestView = RequestHistoryDetailRequestView()
     lazy var responseView = RequestHistoryDetailResponseView()
-    private var contentStackLeftConstraint: Constraint?
+    
+    private var contentStack: UIStackView = .init()
+    
+    private var contentStackLeftConstraint: NSLayoutConstraint?
 
     override func setupUI() {
         super.setupUI()
         clipsToBounds = true
 
-        addSubview(contentSegmentedControl)
-        contentSegmentedControl.snp.makeConstraints { make in
-            make.top.equalTo(layoutMarginsGuide.snp.topMargin).inset(8)
-            make.trailing.leading.equalToSuperview().inset(8)
-        }
+        viewCodeAddSubView(contentSegmentedControl)
+        viewCodeAddSubView(contentStack)
 
-        let contentStack = UIStackView()
         contentStack.distribution = .fillEqually
         contentStack.addArrangedSubview(overviewView)
         contentStack.addArrangedSubview(requestView)
         contentStack.addArrangedSubview(responseView)
-        addSubview(contentStack)
-        contentStack.snp.makeConstraints { make in
-            make.top.equalTo(contentSegmentedControl.snp.bottom).offset(8)
-            make.bottom.equalToSuperview().inset(16)
-            make.width.equalToSuperview().multipliedBy(contentStack.arrangedSubviews.count)
-            contentStackLeftConstraint = make.left.equalToSuperview().constraint
-        }
+        
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        let layoutGuide = safeAreaLayoutGuide
+        
+        contentStackLeftConstraint = contentStack.leftAnchor.constraint(equalTo: layoutGuide.leftAnchor)
+        
+        NSLayoutConstraint.activate([
+            contentSegmentedControl.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 8),
+            contentSegmentedControl.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -8),
+            contentSegmentedControl.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: 8),
+            
+            contentStack.topAnchor.constraint(equalTo: contentSegmentedControl.bottomAnchor, constant: 8),
+            contentStack.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: 16),
+            contentStack.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: CGFloat(contentStack.arrangedSubviews.count)),
+            contentStackLeftConstraint!
+        ])
     }
 
     @objc
     private func didChangeContentSegmentedControl(_ sender: UISegmentedControl) {
         let offset = CGFloat(sender.selectedSegmentIndex) * bounds.width * -1
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: { [weak self] in
-            self?.contentStackLeftConstraint?.update(offset: offset)
+            self?.contentStackLeftConstraint?.constant = offset
             self?.layoutIfNeeded()
         })
     }

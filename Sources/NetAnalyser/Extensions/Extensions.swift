@@ -40,3 +40,20 @@ extension Data {
         return String(decoding: jsonData, as: UTF8.self)
     }
 }
+
+
+extension Date {
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy hh:mm:ss"
+        return dateFormatter.string(from: self)
+    }
+}
+
+
+extension UIView {
+    func viewCodeAddSubView(_ view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+    }
+}
